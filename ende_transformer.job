@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -p compute    # which partition to run on ('compute' is default)
+#SBATCH -J ende_tf6_32k    # arbitrary name for the job (you choose)
+#SBATCH --mail-type=ALL --mail-user=akshai.ramesh2@mail.dcu.ie
+#SBATCH --gres=gpu:rtx2080ti:1
+# load modules if needed (modules are used in the Boole cluster only)
+#module load {module_name}
+# check which modules are available
+#module av
+
+# uncomment the following to get a log of memory usage; NOTE don't use this if you plan to run multiple processes in your job and you are placing "wait" at the end of the job file, else Slurm won't be able to tell when your job is completed!
+# vmstat -S M {interval_secs} >> memory_usage_$SLURM_JOBID.log &
+
+
+# your commands here
+
+cd $(pwd)
+
+
+bash proc1.sh
+
+#bash rnn_expo_train.sh
+bash train_transform1.sh
+bash eval1.sh
+#cd ~/software/udocker
